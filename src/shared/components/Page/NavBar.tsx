@@ -20,7 +20,7 @@ interface Props {
 }
 
 const drawerWidth = 240;
-const navItems = [{ label: 'Search', path: '/' }, { label: 'Favorites', path: '/favorites' }, { label: 'Logout', path: '/login' }];
+const navItems = [{ label: 'Search', path: '/' }, { label: 'Favorites', path: '/favorites' }, { label: 'Logout', path: '/logout' }];
 
 export const NavBar = (props: Props) => {
     const navigate = useNavigate();
