@@ -1,9 +1,14 @@
+import { AppBar } from "@mui/material";
 import { ReactNode } from "react"
+import { NavBar } from "./NavBar";
 
-interface PageProps {
-    children: ReactNode;
-}
+export const Page = ({ title, children }: { title: string, children: ReactNode }) => {
+    document.title = `Dog Lover - ${title}`;
 
-export const Page = ({children} : PageProps) => {
-    return {children}
+    return (
+        <>
+            <NavBar />
+            {children}
+        </>
+    )
 }

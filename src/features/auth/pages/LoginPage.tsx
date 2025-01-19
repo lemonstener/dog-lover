@@ -5,8 +5,10 @@ import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginFormSchema } from "../schemas/loginFormSchema";
+import { useEffect } from "react";
 
 const LoginPage = () => {
+    document.title = 'Dog Lover - Login'
     const navigate = useNavigate();
     const {mutate, isLoading, isSuccess} = useLogin();
     
@@ -14,6 +16,8 @@ const LoginPage = () => {
         defaultValues: {name: '', email: ''},
         resolver: yupResolver(loginFormSchema)
     });
+
+    useEffect(() => localStorage.clear(),[]);
 
     return (
         <form onSubmit={handleSubmit((v) => mutate(v, {
