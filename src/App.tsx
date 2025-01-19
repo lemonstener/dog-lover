@@ -1,6 +1,7 @@
 import './App.css'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { AppRoutes } from './routing/Routes'
+import { Toaster } from 'react-hot-toast'
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
 
   return (
     <QueryClientProvider client={client}>
+      <Toaster />
       <AppRoutes />
     </QueryClientProvider>
   )
