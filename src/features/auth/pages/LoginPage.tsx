@@ -1,27 +1,29 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import { useLogin } from "../../features/auth/hooks/useLogin";
+import { useLogin } from "../hooks/useLogin";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { loginFormSchema } from "../../features/auth/schemas/loginFormSchema";
+import { loginFormSchema } from "../schemas/loginFormSchema";
 
 const LoginPage = () => {
     const navigate = useNavigate();
-    const onLogin = useLogin();
+    const {mutate, isLoading, isSuccess} = useLogin();
     
     const { control, handleSubmit, formState: {errors} } = useForm({
         defaultValues: {name: '', email: ''},
         resolver: yupResolver(loginFormSchema)
     });
-    console.log(errors)
-
 
     return (
-        <form onSubmit={handleSubmit((v) => onLogin.mutate(v, {
-            onSuccess: () => navigate('/'),
+        <form onSubmit={handleSubmit((v) => mutate(v, {
+            onSuccess: () => {
+                localStorage.setItem('userName', v.name);
+                localStorage.setItem('userEmail', v.email);
+                navigate('/');
+            },
             onError: () => {
-                toast.error('Something went wrong', { position: 'top-right'} )
+                toast.error('Something went wrong', { position: 'top-right'} );
             }
         }))}>
             <Typography variant='h1'>Login</Typography>
@@ -42,7 +44,13 @@ const LoginPage = () => {
                             <TextField error={!!errors.email} helperText={errors.email?.message} label={'Email'} {...field} />
                         )
                     }} />
-                <Button variant='contained' type='submit'>Login</Button>
+                <Button 
+                    disabled={isLoading || isSuccess} 
+                    variant='contained' 
+                    type='submit'
+                    >
+                    {isLoading ? 'Logging in' : 'Log in'}
+                </Button>
             </Box>
         </form>
             

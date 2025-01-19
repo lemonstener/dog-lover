@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import { ProtectedRoutes } from './ProtectedRoutes';
 
 export const AppRoutes = () => {
-    const Login = lazy(() => import('./pages/LoginPage'));
+    const Login = lazy(() => import('../features/auth/pages/LoginPage'));
 
     const Home = lazy(() => import('./pages/HomePage'));
     const About = lazy(() => import('./pages/AboutPage'));
