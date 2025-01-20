@@ -1,13 +1,18 @@
 import axios from "axios";
-import { loginRequest } from "./requests/loginRequest";
 
-const axiosInstance = axios.create({
+import { DogSearchResponse } from "./responses/dogSearchResponse";
+import { LoginRequest } from "./requests/loginRequest";
+import { Dog } from "./responses/dogResponse";
+
+const service = axios.create({
     baseURL: 'https://frontend-take-home-service.fetch.com',
     withCredentials: true
 })
 
 export const API = {
-    login: async (payload: loginRequest) => await axiosInstance.post('auth/login', payload),
-    logout: () => axiosInstance.post('auth/logout'),
-    getDogBreeds: () => axiosInstance.get('dogs/breeds')
+    login: (payload: LoginRequest) => service.post('auth/login', payload),
+    logout: () => service.post('auth/logout'),
+    getDogBreeds: () => service.get('dogs/breeds'),
+    getDogSearch: () => service.get<DogSearchResponse>('/dogs/search'),
+    postDogs: (payload: string[]) => service.post<Dog[]>('/dogs', payload)
 }
