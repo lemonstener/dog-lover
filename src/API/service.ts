@@ -4,7 +4,7 @@ import { DogSearchResponse } from "./responses/dogSearchResponse";
 import { LoginRequest } from "./requests/loginRequest";
 import { Dog } from "./responses/dogResponse";
 
-const service = axios.create({
+export const service = axios.create({
     baseURL: 'https://frontend-take-home-service.fetch.com',
     withCredentials: true
 })
