@@ -18,7 +18,7 @@ const LoginPage = () => {
     });
 
     useEffect(() => {
-        if (!!localStorage.length) toast.success('Session terminated', { position: 'top-right' });
+        if (localStorage.length) toast.success('Session terminated', { position: 'top-right' });
         localStorage.clear();
     }, []);
 
@@ -27,6 +27,7 @@ const LoginPage = () => {
             onSuccess: () => {
                 localStorage.setItem('userName', v.name);
                 localStorage.setItem('userEmail', v.email);
+                localStorage.setItem('userFavorites', JSON.stringify([]));
                 navigate('/');
             },
             onError: () => {

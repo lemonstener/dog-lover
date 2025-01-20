@@ -3,9 +3,25 @@ import { Dog } from "../../../API/responses/dogResponse";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CakeOutlined, LocationOn, Pets } from "@mui/icons-material";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 export const DogCard = (props: Dog) => {
     const { id, img, name, zip_code, age, breed } = props;
+    const favorites = JSON.parse(localStorage.getItem('userFavorites') ?? '');
+    const [isFavorite, setIsFavorite] = useState(favorites.includes(id));
+
+    const addToFavorites = () => {
+        let newFavorites = JSON.parse(localStorage.getItem('userFavorites') ?? '');
+        if (newFavorites.includes(id)) {
+            newFavorites = newFavorites.filter((d: string) => d !== id);
+        } else {
+            newFavorites = [...newFavorites, id];
+        }
+        toast.success(`${name} ${isFavorite ? 'removed from' : 'added to'} favorites`, { position: "top-right" })
+        localStorage.setItem('userFavorites', JSON.stringify(newFavorites));
+        setIsFavorite(!isFavorite);
+    }
 
     return (
         <Box sx={{ width: { xs: '100%', sm: '33%', md: '25%' }, display: 'flex', justifyContent: 'center', mt: 1 }}>
@@ -31,7 +47,11 @@ export const DogCard = (props: Dog) => {
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button size="small" variant='contained' endIcon={<FavoriteBorderIcon />}>
+                    <Button onClick={addToFavorites}
+                        size="small"
+                        color={isFavorite ? 'success' : 'info'}
+                        variant='contained'
+                        endIcon={isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}>
                         Favorite
                     </Button>
                 </CardActions>
