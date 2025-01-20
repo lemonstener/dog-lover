@@ -5,14 +5,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CakeOutlined, LocationOn, Pets } from "@mui/icons-material";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { getFavorites } from "../../../shared/utils/getFavorites";
 
 export const DogCard = (props: Dog) => {
     const { id, img, name, zip_code, age, breed } = props;
-    const favorites = JSON.parse(localStorage.getItem('userFavorites') ?? '');
+    const favorites = getFavorites();
     const [isFavorite, setIsFavorite] = useState(favorites.includes(id));
 
     const addToFavorites = () => {
-        let newFavorites = JSON.parse(localStorage.getItem('userFavorites') ?? '');
+        let newFavorites = getFavorites();
         if (newFavorites.includes(id)) {
             newFavorites = newFavorites.filter((d: string) => d !== id);
         } else {
