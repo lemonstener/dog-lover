@@ -1,4 +1,3 @@
-import { AppBar } from "@mui/material";
 import { ReactNode } from "react"
 import { NavBar } from "./NavBar";
 

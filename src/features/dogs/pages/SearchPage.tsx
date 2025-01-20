@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useDogBreeds } from "../hooks/useDogBreeds";
 import { Page } from "../../../shared/components/Page/Page";
@@ -15,9 +15,17 @@ const SearchPage = () => {
 
     return (
         <Page title={'Search'}>
-            {dogsResult?.data?.map((d) => {
-                return (<DogCard key={d.id} {...d} />)
-            })}
+            <Box
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    flexWrap: 'wrap'
+                }}>
+                {dogsResult?.data?.map((d) => {
+                    return (<DogCard key={d.id} {...d} />)
+                })}
+            </Box>
+
             <Typography variant="h1">Home</Typography>
             <Button onClick={() => mutate(data?.data?.resultIds ?? [])}>Search</Button>
         </Page>

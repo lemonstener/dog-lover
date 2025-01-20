@@ -53,7 +53,7 @@ export const NavBar = (props: Props) => {
     const container = window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', mb: 6 }}>
             <CssBaseline />
             <AppBar component="nav">
                 <Toolbar>
@@ -83,7 +83,7 @@ export const NavBar = (props: Props) => {
                     open={mobileOpen}
                     onClose={handleDrawerToggle}
                     ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
+                        keepMounted: true,
                     }}
                     sx={{
                         display: { xs: 'block', sm: 'none' },
