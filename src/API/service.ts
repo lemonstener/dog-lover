@@ -13,6 +13,6 @@ export const API = {
     login: (payload: LoginRequest) => service.post('auth/login', payload),
     logout: () => service.post('auth/logout'),
     getDogBreeds: () => service.get('dogs/breeds'),
-    getDogSearch: () => service.get<DogSearchResponse>('/dogs/search'),
+    getDogSearch: () => service.get<DogSearchResponse>('/dogs/search?sort=breed:asc'),
     postDogs: (payload: string[]) => service.post<Dog[]>('/dogs', payload)
 }

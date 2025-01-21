@@ -2,6 +2,7 @@ import './App.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { AppRoutes } from './routing/Routes';
 import { Toaster } from 'react-hot-toast';
+import { RecoilRoot } from 'recoil'
 
 
 function App() {
@@ -10,7 +11,10 @@ function App() {
   return (
     <QueryClientProvider client={client}>
       <Toaster />
-      <AppRoutes />
+      <RecoilRoot>
+        <AppRoutes />
+      </RecoilRoot>
+
     </QueryClientProvider>
   )
 }

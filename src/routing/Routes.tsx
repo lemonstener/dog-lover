@@ -6,7 +6,7 @@ export const AppRoutes = () => {
     const Login = lazy(() => import('../features/auth/pages/LoginPage'));
     const Logout = lazy(() => import('../features/auth/pages/LogoutPage'));
 
-    const Search = lazy(() => import('../features/dogs/pages/SearchPage'));
+    const Search = lazy(() => import('../features/search/pages/SearchPage'));
     const Favorites = lazy(() => import('./pages/FavoritesPage'));
 
     return (

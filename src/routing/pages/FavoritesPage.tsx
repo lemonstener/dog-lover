@@ -7,14 +7,17 @@ import { DogCard } from "../../features/dogs/components/DogCard";
 
 const FavoritesPage = () => {
     const { mutate, data: dogsResult } = usePostDogs();
+    const favorites = getFavorites();
 
     useEffect(() => {
-        mutate(getFavorites());
+        mutate(favorites);
+        // No need to add favorites to deps array here
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mutate])
 
     return (
         <Page title="Favorites">
-            <Typography variant="h1">{`${localStorage.getItem('userName')}'s favorites`}</Typography>
+            <Typography variant="h1">{favorites.length ? 'Your favorites' : 'You don\'t have any favorites yet'}</Typography>
             <Box
                 sx={{
                     width: '100%',

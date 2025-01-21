@@ -1,8 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import { Page } from "../../../shared/components/Page/Page";
-import { useDogSearch } from "../hooks/useDogSearch";
-import { usePostDogs } from "../hooks/usePostDogs";
-import { DogCard } from "../components/DogCard";
+import { useDogSearch } from "../../dogs/hooks/useDogSearch";
+import { usePostDogs } from "../../dogs/hooks/usePostDogs";
+import { DogCard } from "../../dogs/components/DogCard";
+import { SearchEngine } from "../components/SearchEngine";
 
 
 const SearchPage = () => {
@@ -11,6 +12,7 @@ const SearchPage = () => {
 
     return (
         <Page title={'Search'}>
+            <SearchEngine />
             <Box
                 sx={{
                     width: '100%',
