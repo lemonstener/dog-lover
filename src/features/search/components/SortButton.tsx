@@ -9,7 +9,7 @@ export const SortButton = (props: ButtonProps) => {
     const open = Boolean(anchorEl);
 
     const { watch, setValue } = useFormContext();
-    const watchValue = watch('sort');
+    const watchSort = watch('sort');
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -36,7 +36,7 @@ export const SortButton = (props: ButtonProps) => {
                 endIcon={!anchorEl ? <ExpandLess /> : <ExpandMore />}
                 {...props}
             >
-                {watchValue}
+                {watchSort}
             </Button>
             <Menu
                 id="basic-menu"
@@ -53,7 +53,7 @@ export const SortButton = (props: ButtonProps) => {
                         onClick={() => setSorting(o as Sort)}
                     >
                         {v}
-                        {/* {filters.sort === o && <Check sx={{ fontSize: 16, ml: 1 }} />} */}
+                        {watchSort === o && <Check sx={{ fontSize: 16, ml: 1 }} />}
                     </MenuItem>
                 ))}
             </Menu>

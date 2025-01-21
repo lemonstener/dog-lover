@@ -6,8 +6,11 @@ import { AgeMaxFilter } from "./AgeMaxFilter";
 import { FilterChip } from "./FilterChip";
 import { Filter } from "../enums/Filter";
 import { SortButton } from "./SortButton";
+import { useFormContext } from "react-hook-form";
 
 export const SearchEngine = () => {
+    const { getValues } = useFormContext();
+    const { breeds, zipCodes, ageMin, ageMax } = getValues();
 
     return (
         <Card sx={{ border: '.2px solid gray', mt: 0 }}>
@@ -30,9 +33,9 @@ export const SearchEngine = () => {
                         <AgeMaxFilter />
                     </Box>
                 </Box>
-                {/* <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                    {breeds?.map((b) => (<FilterChip key={`b-${b}`} label={b} type={Filter.Breed} />))}
-                </Box> */}
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                    {breeds?.map((b: string) => (<FilterChip key={`b-${b}`} label={b} type={Filter.Breed} />))}
+                </Box>
             </CardContent>
         </Card>
     )

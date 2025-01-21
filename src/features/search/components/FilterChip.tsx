@@ -1,4 +1,4 @@
-import { useRecoilState } from "recoil";
+import { useFormContext } from "react-hook-form";
 import { Filter } from "../enums/Filter"
 import { Chip } from "@mui/material";
 
@@ -8,11 +8,10 @@ interface FilterChipProps {
 }
 
 export const FilterChip = ({ label, type }: FilterChipProps) => {
-    // const [filters, setFilters] = useRecoilState(allFiltersAtom);
+    const { getValues, setValue } = useFormContext();
 
     const handleDelete = () => {
-        console.log('deleted')
-        // if (type === Filter.Breed) setFilters({ ...filters, breeds: filters.breeds.filter((f) => f !== label) });
+        if (type === Filter.Breed) setValue('breeds', getValues('breeds').filter((b: string) => b !== label))
     }
 
 

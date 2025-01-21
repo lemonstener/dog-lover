@@ -4,10 +4,11 @@ import { useDogSearch } from "../../dogs/hooks/useDogSearch";
 import { usePostDogs } from "../../dogs/hooks/usePostDogs";
 import { DogCard } from "../../dogs/components/DogCard";
 import { SearchEngine } from "../components/SearchEngine";
-import { createSearchParams, URLSearchParamsInit } from "react-router";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Sort } from "../enums/Sort";
+import { AllFilters } from "../types/AllFilters";
+import { createParams } from "../utils/createParams";
 
 
 const SearchPage = () => {
@@ -22,24 +23,26 @@ const SearchPage = () => {
             ageMin: '',
             ageMax: '',
             sort: Object.keys(Sort)[0]
-        }
+        } as AllFilters
     });
 
-    const triggerSearch = () => {
-        console.log(methods.getValues())
-        // const { ageMax, ageMin, zipCodes } = methods.getValues();
-        // console.log(zipCodes)
-        // setFilters({ ...filters, ageMax, ageMin, zipCodes: [...zipCodes] });
-    }
+    const watchSort = methods.watch('sort');
 
-    // useEffect(() => {
-    //     const urlParams = createSearchParams(filters as unknown as URLSearchParamsInit);
-    //     setParams(urlParams.toString())
-    // }, [filters])
+    const triggerSearch = () => {
+        const newParams = createParams(methods.getValues())
+        setParams(newParams);
+    }
 
     useEffect(() => {
         refetch();
     }, [params, refetch])
+
+    // We should refetch results if we update the sort order
+
+    useEffect(() => {
+        const newParams = createParams(methods.getValues())
+        setParams(newParams);
+    }, [methods, watchSort])
 
     useEffect(() => {
         if (isSuccess) mutate(data.data.resultIds);
