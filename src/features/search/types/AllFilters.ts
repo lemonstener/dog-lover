@@ -1,4 +1,4 @@
-import { Sort } from "./Sort";
+import { Sort } from "../enums/Sort";
 
 export interface AllFilters {
     breeds: string[];
@@ -6,5 +6,4 @@ export interface AllFilters {
     ageMin: number;
     ageMax: number;
     sort: Sort;
-    direction: string;
 };

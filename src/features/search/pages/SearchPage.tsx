@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Page } from "../../../shared/components/Page/Page";
 import { useDogSearch } from "../../dogs/hooks/useDogSearch";
 import { usePostDogs } from "../../dogs/hooks/usePostDogs";
@@ -13,6 +13,7 @@ const SearchPage = () => {
     return (
         <Page title={'Search'}>
             <SearchEngine />
+            <Button variant="contained" onClick={() => mutate(data?.data?.resultIds ?? [])}>Search</Button>
             <Box
                 sx={{
                     width: '100%',
@@ -23,9 +24,6 @@ const SearchPage = () => {
                     return (<DogCard key={d.id} {...d} />)
                 })}
             </Box>
-
-            <Typography variant="h1">Home</Typography>
-            <Button onClick={() => mutate(data?.data?.resultIds ?? [])}>Search</Button>
         </Page>
     )
 }
