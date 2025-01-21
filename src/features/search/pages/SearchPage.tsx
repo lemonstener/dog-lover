@@ -9,12 +9,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Sort } from "../enums/Sort";
 import { AllFilters } from "../types/AllFilters";
 import { createParams } from "../utils/createParams";
+import { ResultPagination } from "../components/ResultPagination";
+import { calculateTotalPages } from "../utils/calculateTotalPages";
 
 
 const SearchPage = () => {
     const [params, setParams] = useState<string>('');
-    const { data, isSuccess, refetch } = useDogSearch(params);
-    const { mutate, data: dogsResult } = usePostDogs();
+    const { data: dogSearchResult, isSuccess, refetch } = useDogSearch(params);
+    const { mutate, data: dogPostResult } = usePostDogs();
 
     const methods = useForm({
         defaultValues: {
@@ -23,7 +25,8 @@ const SearchPage = () => {
             ageMin: '',
             ageMax: '',
             sort: Object.keys(Sort)[0],
-            size: '25'
+            size: '25',
+            from: '0'
         } as AllFilters
     });
 
@@ -31,6 +34,7 @@ const SearchPage = () => {
 
     const watchSort = watch('sort');
     const watchSize = watch('size');
+    const watchFrom = watch('from');
 
     const triggerSearch = () => {
         const newParams = createParams(getValues())
@@ -41,33 +45,34 @@ const SearchPage = () => {
         refetch();
     }, [params, refetch])
 
-    // We should refetch results if we update the sort order or result size
+    // We should refetch results when we update sort, size, or from
 
     useEffect(() => {
         const newParams = createParams(getValues())
         setParams(newParams);
-    }, [getValues, watchSort, watchSize])
+    }, [getValues, watchSort, watchSize, watchFrom])
 
     useEffect(() => {
-        if (isSuccess) mutate(data.data.resultIds);
-    }, [data?.data.resultIds, isSuccess, mutate]);
+        if (isSuccess) mutate(dogSearchResult.data.resultIds);
+    }, [dogSearchResult?.data.resultIds, isSuccess, mutate]);
 
     return (
         <Page title={'Search'}>
             <FormProvider {...methods}>
                 <SearchEngine />
                 <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
+                <ResultPagination count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)} />
+                <Box
+                    sx={{
+                        width: '100%',
+                        display: 'flex',
+                        flexWrap: 'wrap'
+                    }}>
+                    {dogPostResult?.data?.map((d) => {
+                        return (<DogCard key={d.id} {...d} />)
+                    })}
+                </Box>
             </FormProvider>
-            <Box
-                sx={{
-                    width: '100%',
-                    display: 'flex',
-                    flexWrap: 'wrap'
-                }}>
-                {dogsResult?.data?.map((d) => {
-                    return (<DogCard key={d.id} {...d} />)
-                })}
-            </Box>
         </Page>
     )
 }
