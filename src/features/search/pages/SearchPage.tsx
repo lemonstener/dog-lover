@@ -22,7 +22,8 @@ const SearchPage = () => {
             zipCodes: '',
             ageMin: '',
             ageMax: '',
-            sort: Object.keys(Sort)[0]
+            sort: Object.keys(Sort)[0],
+            size: '25'
         } as AllFilters
     });
 

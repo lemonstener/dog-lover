@@ -7,6 +7,7 @@ import { FilterChip } from "./FilterChip";
 import { Filter } from "../enums/Filter";
 import { SortButton } from "./SortButton";
 import { useFormContext } from "react-hook-form";
+import { SizeButton } from "./SizeButton";
 
 export const SearchEngine = () => {
     const { getValues } = useFormContext();
@@ -21,11 +22,13 @@ export const SearchEngine = () => {
                     <AgeMinFilter />
                     <AgeMaxFilter />
                     <SortButton variant={'outlined'} color={'secondary'} />
+                    <SizeButton />
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' }, width: '100%', gap: 1, flexDirection: 'column' }}>
                     <Box display={'flex'} justifyContent={'space-between'} gap={1}>
                         <BreedFilter />
                         <SortButton color={'secondary'} variant={'contained'} sx={{ fontSize: '.7rem' }} />
+                        <SizeButton color={'secondary'} variant={'contained'} sx={{ fontSize: '.7rem' }} />
                     </Box>
                     <Box display={'flex'} gap={1}>
                         <ZipCodeFilter />
@@ -35,6 +38,9 @@ export const SearchEngine = () => {
                 </Box>
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     {breeds?.map((b: string) => (<FilterChip key={`b-${b}`} label={b} type={Filter.Breed} />))}
+                    {zipCodes && <FilterChip label={zipCodes} type={Filter.ZipCode} />}
+                    {ageMax && <FilterChip label={`Max ${ageMax} years old`} type={Filter.AgeMax} />}
+                    {ageMin && <FilterChip label={`Min ${ageMin} years old`} type={Filter.AgeMin} />}
                 </Box>
             </CardContent>
         </Card>

@@ -6,4 +6,5 @@ export interface AllFilters {
     ageMin: string;
     ageMax: string;
     sort: Sort;
+    size: string;
 };

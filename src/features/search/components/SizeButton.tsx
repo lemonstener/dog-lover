@@ -1,15 +1,14 @@
-import { Button, ButtonProps, Menu, MenuItem } from "@mui/material"
-import { useState } from "react";
-import { Sort } from "../enums/Sort";
 import { Check, ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Button, ButtonProps, Menu, MenuItem } from "@mui/material";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-export const SortButton = (props: ButtonProps) => {
+export const SizeButton = (props: ButtonProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
     const { watch, setValue } = useFormContext();
-    const watchSort = watch('sort');
+    const watchSize = watch('size');
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -19,8 +18,8 @@ export const SortButton = (props: ButtonProps) => {
         setAnchorEl(null);
     };
 
-    const setSorting = (type: Sort) => {
-        setValue('sort', type);
+    const setSize = (size: string) => {
+        setValue('size', size);
         handleClose();
     };
 
@@ -36,7 +35,7 @@ export const SortButton = (props: ButtonProps) => {
                 endIcon={!anchorEl ? <ExpandLess /> : <ExpandMore />}
                 {...props}
             >
-                {watchSort}
+                {watchSize}
             </Button>
             <Menu
                 id="basic-menu"
@@ -47,16 +46,17 @@ export const SortButton = (props: ButtonProps) => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                {Object.entries(Sort).map(([o, v]) => (
+                {['25', '50', '100'].map((v) => (
                     <MenuItem
-                        key={o}
-                        onClick={() => setSorting(o as Sort)}
+                        key={`size-${v}`}
+                        onClick={() => setSize(v)}
                     >
                         {v}
-                        {watchSort === o && <Check sx={{ fontSize: 16, ml: 1 }} />}
+                        {watchSize === v && <Check sx={{ fontSize: 16, ml: 1 }} />}
                     </MenuItem>
                 ))}
             </Menu>
         </>
+
     )
 }
