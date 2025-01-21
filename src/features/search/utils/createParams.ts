@@ -6,5 +6,5 @@ export const createParams = (values: AllFilters) => {
         if (!values[key as keyof AllFilters].length || values[key as keyof AllFilters] === '')
             delete values[key as keyof AllFilters]
     }
-    return createSearchParams(values as unknown as URLSearchParamsInit).toString();
+    return createSearchParams(values as unknown as URLSearchParamsInit);
 }

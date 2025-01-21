@@ -28,7 +28,7 @@ const LoginPage = () => {
                 localStorage.setItem('userName', v.name);
                 localStorage.setItem('userEmail', v.email);
                 localStorage.setItem('userFavorites', JSON.stringify([]));
-                navigate('/');
+                navigate('/search');
             },
             onError: () => {
                 toast.error('Something went wrong', { position: 'top-right' });

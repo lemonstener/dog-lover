@@ -17,7 +17,7 @@ export const AppRoutes = () => {
                     <Route path="/logout" element={<Logout />} />
 
                     <Route element={<ProtectedRoutes />}>
-                        <Route path='/' element={<Search />} />
+                        <Route path='/search' element={<Search />} />
                         <Route path="/favorites" element={<Favorites />} />
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Route>
