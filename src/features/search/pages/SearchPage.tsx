@@ -5,28 +5,37 @@ import { usePostDogs } from "../../dogs/hooks/usePostDogs";
 import { DogCard } from "../../dogs/components/DogCard";
 import { SearchEngine } from "../components/SearchEngine";
 import { createSearchParams, URLSearchParamsInit } from "react-router";
-import { useRecoilState } from "recoil";
-import { allFiltersAtom } from "../state/allFiltersAtom";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { Sort } from "../enums/Sort";
 
 
 const SearchPage = () => {
     const [params, setParams] = useState<string>('');
     const { data, isSuccess, refetch } = useDogSearch(params);
     const { mutate, data: dogsResult } = usePostDogs();
-    const [filters, setFilters] = useRecoilState(allFiltersAtom);
 
-    const methods = useForm({ defaultValues: filters });
+    const methods = useForm({
+        defaultValues: {
+            breeds: [],
+            zipCodes: '',
+            ageMin: '',
+            ageMax: '',
+            sort: Object.keys(Sort)[0]
+        }
+    });
 
     const triggerSearch = () => {
-        setFilters({ ...filters, ageMax: methods.getValues('ageMax', 'ageMin', 'zipCode') });
+        console.log(methods.getValues())
+        // const { ageMax, ageMin, zipCodes } = methods.getValues();
+        // console.log(zipCodes)
+        // setFilters({ ...filters, ageMax, ageMin, zipCodes: [...zipCodes] });
     }
 
-    useEffect(() => {
-        const urlParams = createSearchParams(filters as unknown as URLSearchParamsInit);
-        setParams(urlParams.toString())
-    }, [filters])
+    // useEffect(() => {
+    //     const urlParams = createSearchParams(filters as unknown as URLSearchParamsInit);
+    //     setParams(urlParams.toString())
+    // }, [filters])
 
     useEffect(() => {
         refetch();

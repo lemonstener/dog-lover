@@ -1,24 +1,26 @@
 import { Button, ButtonProps, Menu, MenuItem } from "@mui/material"
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { allFiltersAtom } from "../state/allFiltersAtom";
 import { Sort } from "../enums/Sort";
 import { Check, ExpandLess, ExpandMore } from "@mui/icons-material";
+import { useFormContext } from "react-hook-form";
 
 export const SortButton = (props: ButtonProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
+
+    const { watch, setValue } = useFormContext();
+    const watchValue = watch('sort');
+
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const [filters, setFilters] = useRecoilState(allFiltersAtom);
 
     const handleClose = () => {
         setAnchorEl(null);
     };
 
     const setSorting = (type: Sort) => {
-        setFilters({ ...filters, sort: type });
+        setValue('sort', type);
         handleClose();
     };
 
@@ -34,7 +36,7 @@ export const SortButton = (props: ButtonProps) => {
                 endIcon={!anchorEl ? <ExpandLess /> : <ExpandMore />}
                 {...props}
             >
-                {filters.sort}
+                {watchValue}
             </Button>
             <Menu
                 id="basic-menu"
@@ -51,7 +53,7 @@ export const SortButton = (props: ButtonProps) => {
                         onClick={() => setSorting(o as Sort)}
                     >
                         {v}
-                        {filters.sort === o && <Check sx={{ fontSize: 16, ml: 1 }} />}
+                        {/* {filters.sort === o && <Check sx={{ fontSize: 16, ml: 1 }} />} */}
                     </MenuItem>
                 ))}
             </Menu>

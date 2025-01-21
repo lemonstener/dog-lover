@@ -1,7 +1,5 @@
 import { Box, Card, CardContent } from "@mui/material";
 import { BreedFilter } from "./BreedFilter";
-import { useRecoilValue } from "recoil";
-import { allFiltersAtom } from "../state/allFiltersAtom";
 import { ZipCodeFilter } from "./ZipCodeFilter";
 import { AgeMinFilter } from "./AgeMinFilter";
 import { AgeMaxFilter } from "./AgeMaxFilter";
@@ -10,7 +8,6 @@ import { Filter } from "../enums/Filter";
 import { SortButton } from "./SortButton";
 
 export const SearchEngine = () => {
-    const { breeds } = useRecoilValue(allFiltersAtom);
 
     return (
         <Card sx={{ border: '.2px solid gray', mt: 0 }}>
@@ -33,9 +30,9 @@ export const SearchEngine = () => {
                         <AgeMaxFilter />
                     </Box>
                 </Box>
-                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                {/* <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     {breeds?.map((b) => (<FilterChip key={`b-${b}`} label={b} type={Filter.Breed} />))}
-                </Box>
+                </Box> */}
             </CardContent>
         </Card>
     )

@@ -8,9 +8,15 @@ export const AgeMaxFilter = () => {
         <Controller
             control={control}
             name={'ageMax'}
-            render={({ field }) => {
+            render={({ field: { onChange, name, value } }) => {
                 return (
-                    <PatternFormat label="Max age" format={'##'} customInput={TextField} {...field} />
+                    <PatternFormat
+                        name={name}
+                        value={value}
+                        onChange={onChange}
+                        label="Max age"
+                        format={'##'}
+                        customInput={TextField} />
                 )
             }} />
     )

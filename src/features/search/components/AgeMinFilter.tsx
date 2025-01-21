@@ -8,9 +8,15 @@ export const AgeMinFilter = () => {
         <Controller
             control={control}
             name={'ageMin'}
-            render={({ field }) => {
+            render={({ field: { onChange, name, value } }) => {
                 return (
-                    <PatternFormat label="Min age" format={'##'} customInput={TextField} {...field} />
+                    <PatternFormat
+                        name={name}
+                        value={value}
+                        onChange={onChange}
+                        label="Min age"
+                        format={'##'}
+                        customInput={TextField} />
                 )
             }} />
     )
