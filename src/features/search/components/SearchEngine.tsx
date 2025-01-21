@@ -1,22 +1,22 @@
-import { Box, Chip } from "@mui/material"
-import { useParams } from "react-router"
+import { Box, Chip } from "@mui/material";
 import { BreedFilter } from "./BreedFilter";
 import { useRecoilValue } from "recoil";
 import { allFiltersAtom } from "../state/allFiltersAtom";
+import { ZipCodeFilter } from "./ZipCodeFilter";
 
 export const SearchEngine = () => {
-    const params = useParams();
     const { breeds } = useRecoilValue(allFiltersAtom);
 
     return (
-        <>
-            <Box>
+        <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex' }}>
                 <BreedFilter />
+                <ZipCodeFilter />
             </Box>
             <Box>
-                {breeds?.map((b) => (<Chip label={b} />))}
+                {breeds?.map((b) => (<Chip key={`b-${b}`} label={b} />))}
             </Box>
-        </>
+        </Box>
 
     )
 }
