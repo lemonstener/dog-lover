@@ -19,21 +19,21 @@ export const SearchEngine = () => {
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', gap: 1, justifyContent: 'center', }}>
                     <BreedFilter />
                     <ZipCodeFilter />
-                    <AgeMinFilter />
-                    <AgeMaxFilter />
+                    <AgeMinFilter label="Min age" sx={{ maxWidth: 100 }} />
+                    <AgeMaxFilter label="Max age" sx={{ maxWidth: 100 }} />
                     <SortButton variant={'outlined'} color={'secondary'} />
-                    <SizeButton />
+                    <SizeButton variant={'outlined'} color={'secondary'} />
                 </Box>
                 <Box sx={{ display: { xs: 'flex', md: 'none' }, width: '100%', gap: 1, flexDirection: 'column' }}>
-                    <Box display={'flex'} justifyContent={'space-between'} gap={1}>
+                    <Box display={'flex'} gap={1}>
                         <BreedFilter />
                         <SortButton color={'secondary'} variant={'contained'} sx={{ fontSize: '.7rem' }} />
                         <SizeButton color={'secondary'} variant={'contained'} sx={{ fontSize: '.7rem' }} />
                     </Box>
                     <Box display={'flex'} gap={1}>
                         <ZipCodeFilter />
-                        <AgeMinFilter />
-                        <AgeMaxFilter />
+                        <AgeMinFilter label="Min age" />
+                        <AgeMaxFilter label="Max age" />
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>

@@ -27,10 +27,13 @@ const SearchPage = () => {
         } as AllFilters
     });
 
-    const watchSort = methods.watch('sort');
+    const { watch, getValues } = methods;
+
+    const watchSort = watch('sort');
+    const watchSize = watch('size');
 
     const triggerSearch = () => {
-        const newParams = createParams(methods.getValues())
+        const newParams = createParams(getValues())
         setParams(newParams);
     }
 
@@ -38,12 +41,12 @@ const SearchPage = () => {
         refetch();
     }, [params, refetch])
 
-    // We should refetch results if we update the sort order
+    // We should refetch results if we update the sort order or result size
 
     useEffect(() => {
-        const newParams = createParams(methods.getValues())
+        const newParams = createParams(getValues())
         setParams(newParams);
-    }, [methods, watchSort])
+    }, [getValues, watchSort, watchSize])
 
     useEffect(() => {
         if (isSuccess) mutate(data.data.resultIds);
