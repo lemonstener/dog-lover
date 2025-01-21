@@ -13,7 +13,7 @@ const SearchPage = () => {
     return (
         <Page title={'Search'}>
             <SearchEngine />
-            <Button variant="contained" onClick={() => mutate(data?.data?.resultIds ?? [])}>Search</Button>
+            <Button sx={{ mt: 1 }} variant="contained" onClick={() => mutate(data?.data?.resultIds ?? [])}>Search</Button>
             <Box
                 sx={{
                     width: '100%',

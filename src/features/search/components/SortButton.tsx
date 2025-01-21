@@ -1,11 +1,11 @@
-import { Button, Menu, MenuItem } from "@mui/material"
+import { Button, ButtonProps, Menu, MenuItem } from "@mui/material"
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { allFiltersAtom } from "../state/allFiltersAtom";
 import { Sort } from "../enums/Sort";
-import { Check } from "@mui/icons-material";
+import { ArrowDownward, ArrowUpward, Check, ExpandLess, ExpandMore } from "@mui/icons-material";
 
-export const SortButton = () => {
+export const SortButton = (props: ButtonProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,8 +31,10 @@ export const SortButton = () => {
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                endIcon={!anchorEl ? <ExpandLess /> : <ExpandMore />}
+                {...props}
             >
-                {Sort[filters.sort] ?? Sort["breed:asc"]}
+                {Sort[filters.sort ?? "breed:asc"]}
             </Button>
             <Menu
                 id="basic-menu"
