@@ -5,22 +5,32 @@ import { usePostDogs } from "../../dogs/hooks/usePostDogs";
 import { DogCard } from "../../dogs/components/DogCard";
 import { SearchEngine } from "../components/SearchEngine";
 import { createSearchParams, URLSearchParamsInit } from "react-router";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { allFiltersAtom } from "../state/allFiltersAtom";
 import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 
 const SearchPage = () => {
     const [params, setParams] = useState<string>('');
-    const { data, isSuccess } = useDogSearch(params);
+    const { data, isSuccess, refetch } = useDogSearch(params);
     const { mutate, data: dogsResult } = usePostDogs();
-    const filters = useRecoilValue(allFiltersAtom);
+    const [filters, setFilters] = useRecoilState(allFiltersAtom);
+
+    const methods = useForm({ defaultValues: filters });
 
     const triggerSearch = () => {
-        const urlParams = createSearchParams(filters as unknown as URLSearchParamsInit);
-        console.log(params.toString())
-        setParams(urlParams.toString())
+        setFilters({ ...filters, ageMax: methods.getValues('ageMax', 'ageMin', 'zipCode') });
     }
+
+    useEffect(() => {
+        const urlParams = createSearchParams(filters as unknown as URLSearchParamsInit);
+        setParams(urlParams.toString())
+    }, [filters])
+
+    useEffect(() => {
+        refetch();
+    }, [params, refetch])
 
     useEffect(() => {
         if (isSuccess) mutate(data.data.resultIds);
@@ -28,9 +38,10 @@ const SearchPage = () => {
 
     return (
         <Page title={'Search'}>
-            <SearchEngine />
-            {/* <Button sx={{ mt: 1 }} variant="contained" onClick={() => mutate(data?.data?.resultIds ?? [])}>Search</Button> */}
-            <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
+            <FormProvider {...methods}>
+                <SearchEngine />
+                <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
+            </FormProvider>
             <Box
                 sx={{
                     width: '100%',
