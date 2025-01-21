@@ -13,7 +13,7 @@ export const SearchEngine = () => {
     const { breeds } = useRecoilValue(allFiltersAtom);
 
     return (
-        <Card sx={{ border: '.2px solid gray', mt: 0, position: 'sticky' }}>
+        <Card sx={{ border: '.2px solid gray', mt: 0 }}>
             <CardContent sx={{ display: 'flex', width: '100%', maxWidth: 1200, flexDirection: 'column', gap: 1 }}>
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', gap: 1, justifyContent: 'center', }}>
                     <BreedFilter />

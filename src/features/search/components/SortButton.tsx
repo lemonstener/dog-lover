@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { allFiltersAtom } from "../state/allFiltersAtom";
 import { Sort } from "../enums/Sort";
-import { ArrowDownward, ArrowUpward, Check, ExpandLess, ExpandMore } from "@mui/icons-material";
+import { Check, ExpandLess, ExpandMore } from "@mui/icons-material";
 
 export const SortButton = (props: ButtonProps) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -34,7 +34,7 @@ export const SortButton = (props: ButtonProps) => {
                 endIcon={!anchorEl ? <ExpandLess /> : <ExpandMore />}
                 {...props}
             >
-                {Sort[filters.sort ?? "breed:asc"]}
+                {filters.sort}
             </Button>
             <Menu
                 id="basic-menu"
