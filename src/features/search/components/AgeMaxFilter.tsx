@@ -1,9 +1,10 @@
-import { TextField, TextFieldProps } from '@mui/material';
+import { TextField } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import { PatternFormat } from 'react-number-format';
 
-export const AgeMaxFilter = (props: TextFieldProps) => {
+export const AgeMaxFilter = () => {
     const { control } = useFormContext();
+
     return (
         <Controller
             control={control}
@@ -11,11 +12,13 @@ export const AgeMaxFilter = (props: TextFieldProps) => {
             render={({ field: { onChange, name, value } }) => {
                 return (
                     <PatternFormat
+                        style={{ maxWidth: 100 }}
+                        label={'Max age'}
                         name={name}
                         value={value}
                         onChange={onChange}
                         format={'##'}
-                        customInput={() => <TextField {...props} />} />
+                        customInput={TextField} />
                 )
             }} />
     )

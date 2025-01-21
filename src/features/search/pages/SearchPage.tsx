@@ -11,24 +11,17 @@ import { AllFilters } from "../types/AllFilters";
 import { createParams } from "../utils/createParams";
 import { ResultPagination } from "../components/ResultPagination";
 import { calculateTotalPages } from "../utils/calculateTotalPages";
+import { useSearchParams } from "react-router";
+import { searchDefaultValues } from "../utils/searchDefaultValues";
 
 
 const SearchPage = () => {
-    const [params, setParams] = useState<string>('');
-    const { data: dogSearchResult, isSuccess, refetch } = useDogSearch(params);
-    const { mutate, data: dogPostResult } = usePostDogs();
+    const [searchParams, setSearchParams] = useSearchParams();
+    // const [params, setParams] = useState<string>('');
+    // const { data: dogSearchResult, isSuccess, refetch } = useDogSearch(params);
+    // const { mutate, data: dogPostResult } = usePostDogs();
 
-    const methods = useForm({
-        defaultValues: {
-            breeds: [],
-            zipCodes: '',
-            ageMin: '',
-            ageMax: '',
-            sort: Object.keys(Sort)[0],
-            size: '25',
-            from: '0'
-        } as AllFilters
-    });
+    const methods = useForm<AllFilters>({ values: searchDefaultValues(searchParams) });
 
     const { watch, getValues } = methods;
 
@@ -37,42 +30,43 @@ const SearchPage = () => {
     const watchFrom = watch('from');
 
     const triggerSearch = () => {
+        console.log(getValues('ageMax'))
         const newParams = createParams(getValues())
-        setParams(newParams);
+        setSearchParams(newParams);
     }
 
-    useEffect(() => {
-        refetch();
-    }, [params, refetch])
+    // useEffect(() => {
+    //     refetch();
+    // }, [params, refetch])
 
-    // We should refetch results when we update sort, size, or from
+    // // We should refetch results when we update sort, size, or from
 
-    useEffect(() => {
-        const newParams = createParams(getValues())
-        setParams(newParams);
-    }, [getValues, watchSort, watchSize, watchFrom])
+    // useEffect(() => {
+    //     const newParams = createParams(getValues())
+    //     setParams(newParams);
+    // }, [getValues, watchSort, watchSize, watchFrom])
 
-    useEffect(() => {
-        if (isSuccess) mutate(dogSearchResult.data.resultIds);
-    }, [dogSearchResult?.data.resultIds, isSuccess, mutate]);
+    // useEffect(() => {
+    //     if (isSuccess) mutate(dogSearchResult.data.resultIds);
+    // }, [dogSearchResult?.data.resultIds, isSuccess, mutate]);
 
     return (
         <Page title={'Search'}>
             <FormProvider {...methods}>
                 <SearchEngine />
                 <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
-                <ResultPagination count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)} />
-                <Box
-                    sx={{
-                        width: '100%',
-                        display: 'flex',
-                        flexWrap: 'wrap'
-                    }}>
-                    {dogPostResult?.data?.map((d) => {
-                        return (<DogCard key={d.id} {...d} />)
-                    })}
-                </Box>
+                {/* <ResultPagination count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)} /> */}
             </FormProvider>
+            <Box
+                sx={{
+                    width: '100%',
+                    display: 'flex',
+                    flexWrap: 'wrap'
+                }}>
+                {/* {dogPostResult?.data?.map((d) => {
+                        return (<DogCard key={d.id} {...d} />)
+                    })} */}
+            </Box>
         </Page>
     )
 }
