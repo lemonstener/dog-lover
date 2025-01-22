@@ -17,9 +17,8 @@ import { searchDefaultValues } from "../utils/searchDefaultValues";
 
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    // const [params, setParams] = useState<string>('');
-    // const { data: dogSearchResult, isSuccess, refetch } = useDogSearch(params);
-    // const { mutate, data: dogPostResult } = usePostDogs();
+    const { data: dogSearchResult, isSuccess, refetch } = useDogSearch(searchParams.toString());
+    const { mutate, data: dogPostResult } = usePostDogs();
 
     const methods = useForm<AllFilters>({ values: searchDefaultValues(searchParams) });
 
@@ -30,14 +29,18 @@ const SearchPage = () => {
     const watchFrom = watch('from');
 
     const triggerSearch = () => {
-        console.log(getValues('ageMax'))
         const newParams = createParams(getValues())
         setSearchParams(newParams);
     }
 
-    // useEffect(() => {
-    //     refetch();
-    // }, [params, refetch])
+    useEffect(() => {
+        const newParams = createParams(getValues())
+        setSearchParams(newParams);
+    }, [getValues, setSearchParams, watchSize, watchSort])
+
+    useEffect(() => {
+        refetch();
+    }, [searchParams, refetch])
 
     // // We should refetch results when we update sort, size, or from
 
@@ -46,9 +49,9 @@ const SearchPage = () => {
     //     setParams(newParams);
     // }, [getValues, watchSort, watchSize, watchFrom])
 
-    // useEffect(() => {
-    //     if (isSuccess) mutate(dogSearchResult.data.resultIds);
-    // }, [dogSearchResult?.data.resultIds, isSuccess, mutate]);
+    useEffect(() => {
+        if (isSuccess) mutate(dogSearchResult.data.resultIds);
+    }, [dogSearchResult?.data.resultIds, isSuccess, mutate]);
 
     return (
         <Page title={'Search'}>
@@ -63,9 +66,9 @@ const SearchPage = () => {
                     display: 'flex',
                     flexWrap: 'wrap'
                 }}>
-                {/* {dogPostResult?.data?.map((d) => {
-                        return (<DogCard key={d.id} {...d} />)
-                    })} */}
+                {dogPostResult?.data?.map((d) => {
+                    return (<DogCard key={d.id} {...d} />)
+                })}
             </Box>
         </Page>
     )

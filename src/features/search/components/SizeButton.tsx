@@ -20,7 +20,7 @@ export const SizeButton = (props: ButtonProps) => {
 
     const setSize = (size: string) => {
         setValue('size', size);
-        handleClose();
+        setValue('from', '0');
     };
 
 

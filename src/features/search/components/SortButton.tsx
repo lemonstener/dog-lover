@@ -21,6 +21,7 @@ export const SortButton = (props: ButtonProps) => {
 
     const setSorting = (type: Sort) => {
         setValue('sort', type);
+        setValue('from', '0');
         handleClose();
     };
 
