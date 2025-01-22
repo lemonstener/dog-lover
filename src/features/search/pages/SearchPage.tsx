@@ -59,14 +59,16 @@ const SearchPage = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: 2,
-                    mb: 1,
-                    background: '#f5f5f5'
+                    mb: 1
                 }}
                 >
                     <SearchEngine />
                     <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
                     <Typography>{`${dogSearchResult?.data.total} matches`}</Typography>
-                    <ResultPagination count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)} />
+                    <ResultPagination
+                        page={Math.ceil((+watchFrom + +watchSize) / +watchSize)}
+                        count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)}
+                    />
                 </Box>
 
             </FormProvider>

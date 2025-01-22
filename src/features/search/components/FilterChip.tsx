@@ -17,11 +17,13 @@ export const FilterChip = ({ label, type }: FilterChipProps) => {
     const handleDelete = () => {
         if (type === Filter.Breed) {
             setValue('breeds', getValues('breeds').filter((b: string) => b !== label));
+            setValue('from', '0');
             return;
         }
         if (type === Filter.ZipCode) setValue('zipCodes', '');
         if (type === Filter.AgeMin) setValue('ageMin', '');
         if (type === Filter.AgeMax) setValue('ageMax', '');
+        setValue('from', '0');
         const newParams = createParams(getValues() as AllFilters);
         setSearchParams(newParams);
     }
