@@ -30,8 +30,8 @@ const FavoritesPage = () => {
                     return (<DogCard key={d.id} {...d} />)
                 })}
             </Box>
-            <Button onClick={() => setOpen(true)}>Find a match</Button>
-            {open && <DogMatchDialog open={open} handleClose={() => setOpen(false)} />}
+            {(!!favorites.length) && <Button onClick={() => setOpen(true)}>Find a match</Button>}
+            <DogMatchDialog open={open} handleClose={() => setOpen(false)} />
         </Page>
     )
 }
