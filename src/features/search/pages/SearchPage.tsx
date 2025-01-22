@@ -62,6 +62,7 @@ const SearchPage = () => {
                 sx={{
                     width: '100%',
                     display: 'flex',
+                    justifyContent: { xs: 'center', md: 'start' },
                     flexWrap: 'wrap'
                 }}>
                 {dogPostResult?.data?.map((d) => {

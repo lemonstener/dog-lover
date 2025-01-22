@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { getFavorites } from '../../../shared/utils/getFavorites';
 import { usePostDogs } from '../hooks/usePostDogs';
 import { Dog } from '../../../API/responses/dog';
-import { CakeOutlined, LocationOn, Pets, Save } from '@mui/icons-material';
+import { CakeOutlined, LocationOn, Pets } from '@mui/icons-material';
 
 interface DogMatchDialogProps {
     open: boolean;

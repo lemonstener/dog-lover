@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Dog } from "../../../API/responses/dog";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -25,14 +25,29 @@ export const DogCard = (props: Dog) => {
     }
 
     return (
-        <Box sx={{ width: { xs: '100%', sm: '33%', md: '25%' }, display: 'flex', justifyContent: 'center', mt: 1 }}>
-            <Card sx={{ width: { xs: 260, sm: 170, md: 200, lg: 260 } }}>
-                <CardMedia
-                    sx={{ height: { xs: 180, sm: 180, md: 200, lg: 260 } }}
-                    image={img}
-                    title={name}
+        <Box
+            sx={{
+                width: { xs: '80%', sm: '50%', md: '33.3%', lg: '25%' },
+                my: 1
+            }}>
+            <Box sx={{
+                p: 2,
+                background: isFavorite ? '#f5f5f5' : 'none',
+                width: '99%',
+                ":hover": { background: '#f5f5f5' },
+                transition: '.1s',
+                borderRadius: 2
+            }}>
+                <Box
+                    component={'img'}
+                    src={img}
+                    alt={`Image of ${name}`}
+                    sx={{
+                        height: { xs: 180, sm: 180, md: 200, lg: 260 },
+                        width: 250
+                    }}
                 />
-                <CardContent>
+                <Box py={1}>
                     <Typography gutterBottom variant="h5" component="div">
                         {name}
                     </Typography>
@@ -46,17 +61,15 @@ export const DogCard = (props: Dog) => {
                         {zip_code}
                         <LocationOn sx={{ fontSize: 12 }} />
                     </Typography>
-                </CardContent>
-                <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button onClick={addToFavorites}
-                        size="small"
-                        color={isFavorite ? 'success' : 'info'}
-                        variant='contained'
-                        endIcon={isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}>
-                        Favorite
-                    </Button>
-                </CardActions>
-            </Card>
+                </Box>
+                <Button onClick={addToFavorites}
+                    size="small"
+                    color={isFavorite ? 'success' : 'info'}
+                    variant='contained'
+                    endIcon={isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}>
+                    Favorite
+                </Button>
+            </Box>
         </Box>
     )
 }
