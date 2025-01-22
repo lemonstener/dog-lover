@@ -17,7 +17,6 @@ export const AgeMaxFilter = () => {
             render={({ field: { name, value } }) => {
                 return (
                     <PatternFormat
-                        style={{ maxWidth: 100 }}
                         label={'Max age'}
                         name={name}
                         value={value}

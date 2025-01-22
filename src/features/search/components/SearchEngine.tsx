@@ -38,8 +38,8 @@ export const SearchEngine = () => {
                 <Box sx={{ display: { xs: 'flex', md: 'none' }, width: '100%', gap: 1, flexDirection: 'column' }}>
                     <Box display={'flex'} gap={1}>
                         <BreedFilter />
-                        <SortButton color={'secondary'} variant={'contained'} sx={{ fontSize: '.7rem' }} />
-                        <SizeButton color={'secondary'} variant={'contained'} sx={{ fontSize: '.7rem' }} />
+                        <SortButton color={'secondary'} variant={'contained'} fullWidth sx={{ fontSize: '.7rem' }} />
+                        <SizeButton color={'secondary'} variant={'contained'} fullWidth sx={{ fontSize: '.7rem' }} />
                     </Box>
                     <Box display={'flex'} gap={1}>
                         <ZipCodeFilter />

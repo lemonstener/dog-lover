@@ -17,7 +17,6 @@ export const AgeMinFilter = () => {
             render={({ field: { name, value } }) => {
                 return (
                     <PatternFormat
-                        style={{ maxWidth: 100 }}
                         label={'Min age'}
                         name={name}
                         value={value}
