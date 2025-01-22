@@ -12,12 +12,14 @@ import { ResultPagination } from "../components/ResultPagination";
 import { calculateTotalPages } from "../utils/calculateTotalPages";
 import { useSearchParams } from "react-router";
 import { searchDefaultValues } from "../utils/searchDefaultValues";
+import { DogCardSkeleton } from "../../dogs/components/DogCardSkeleton";
 
 
 const SearchPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { data: dogSearchResult, isSuccess, refetch } = useDogSearch(searchParams.toString());
-    const { mutate, data: dogPostResult } = usePostDogs();
+    const { data: dogSearchResult, isSuccess, isLoading: isLoadingSearchDogs, refetch } = useDogSearch(searchParams.toString());
+    const { mutate, data: dogPostResult, isLoading: isLoadingPostDogs } = usePostDogs();
+    const isLoading = isLoadingPostDogs || isLoadingSearchDogs;
 
     const methods = useForm<AllFilters>({ values: searchDefaultValues(searchParams) });
 
@@ -87,6 +89,9 @@ const SearchPage = () => {
                     height: '80%',
                     overflow: 'scroll'
                 }}>
+                {isLoading && Array(+watchSize).fill('').map((_, i) => (
+                    <DogCardSkeleton key={i} />
+                ))}
                 {dogPostResult?.data?.map((d) => {
                     return (<DogCard key={d.id} {...d} />)
                 })}
