@@ -4,7 +4,7 @@ import { useDogSearch } from "../../dogs/hooks/useDogSearch";
 import { usePostDogs } from "../../dogs/hooks/usePostDogs";
 import { DogCard } from "../../dogs/components/DogCard";
 import { SearchEngine } from "../components/SearchEngine";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { AllFilters } from "../types/AllFilters";
 import { createParams } from "../utils/createParams";
@@ -20,6 +20,7 @@ const SearchPage = () => {
     const { data: dogSearchResult, isSuccess, isLoading: isLoadingSearchDogs, refetch } = useDogSearch(searchParams.toString());
     const { mutate, data: dogPostResult, isLoading: isLoadingPostDogs } = usePostDogs();
     const isLoading = isLoadingPostDogs || isLoadingSearchDogs;
+    const scrollableBoxRef = useRef<HTMLElement | null>(null);
 
     const methods = useForm<AllFilters>({ values: searchDefaultValues(searchParams) });
 
@@ -55,6 +56,7 @@ const SearchPage = () => {
 
     useEffect(() => {
         refetch();
+        if (scrollableBoxRef.current) scrollableBoxRef.current.scrollTop = 0;
     }, [searchParams, refetch]);
 
     useEffect(() => {
@@ -81,12 +83,13 @@ const SearchPage = () => {
                 </Box>
             </FormProvider>
             <Box
+                ref={scrollableBoxRef}
                 sx={{
                     width: '100%',
                     display: 'flex',
                     justifyContent: { xs: 'center', sm: 'start' },
                     flexWrap: 'wrap',
-                    height: '80%',
+                    height: '70%',
                     overflow: 'scroll'
                 }}>
                 {isLoading && Array(+watchSize).fill('').map((_, i) => (
