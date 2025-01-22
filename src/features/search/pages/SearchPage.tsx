@@ -27,6 +27,7 @@ const SearchPage = () => {
     const watchSort = watch('sort');
     const watchSize = watch('size');
     const watchFrom = watch('from');
+    const watchBreeds = watch('breeds');
 
     const triggerSearch = () => {
         const newParams = createParams(getValues())
@@ -36,11 +37,11 @@ const SearchPage = () => {
     useEffect(() => {
         const newParams = createParams(getValues())
         setSearchParams(newParams);
-    }, [getValues, setSearchParams, watchSize, watchSort])
+    }, [getValues, setSearchParams, watchSize, watchSort, watchBreeds]);
 
     useEffect(() => {
         refetch();
-    }, [searchParams, refetch])
+    }, [searchParams, refetch]);
 
     // // We should refetch results when we update sort, size, or from
 

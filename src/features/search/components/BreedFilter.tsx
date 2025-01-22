@@ -8,6 +8,12 @@ export const BreedFilter = () => {
 
     const watchBreeds = watch('breeds');
 
+    const handleChange = (value: string) => {
+        if (watchBreeds.includes(value)) return;
+        setValue('breeds', [...watchBreeds, value]);
+    }
+
+
 
     return (
         <Box>
@@ -21,11 +27,7 @@ export const BreedFilter = () => {
                             disableClearable
                             options={dogBreeds?.data ?? []}
                             sx={{ width: 250 }}
-                            onChange={(e) => {
-                                const breed = e.target.innerText;
-                                if (watchBreeds.includes(breed)) return;
-                                setValue('breeds', [...watchBreeds, e.target.innerText]);
-                            }}
+                            onChange={(e) => handleChange(e.target.innerText)}
                             renderInput={(params) => <TextField {...params} label="Breed" />
                             }
                         />
