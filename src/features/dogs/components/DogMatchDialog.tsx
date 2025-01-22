@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Divider, CircularProgress } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, Typography, Divider, CircularProgress, Box } from '@mui/material';
 import { usePostDogsMatch } from '../hooks/useDogMatch';
 import { useEffect } from 'react';
 import { getFavorites } from '../../../shared/utils/getFavorites';
@@ -19,12 +19,12 @@ export const DogMatchDialog = ({ open, handleClose }: DogMatchDialogProps) => {
 
     useEffect(() => {
         const favorites = getFavorites();
-        if (favorites.length) mutateDogsMatch(favorites);
-    }, [mutateDogsMatch])
+        if (favorites.length && open) mutateDogsMatch(favorites);
+    }, [mutateDogsMatch, open])
 
     useEffect(() => {
-        if (matchResult?.data.match) mutateDogsPost([matchResult?.data.match])
-    }, [dogsMatchSuccess, matchResult?.data.match, mutateDogsPost])
+        if (matchResult?.data.match && open) mutateDogsPost([matchResult?.data.match])
+    }, [dogsMatchSuccess, matchResult?.data.match, mutateDogsPost, open])
 
     return (
         <Dialog open={open} sx={{ minHeigh: 250 }}>
@@ -32,7 +32,10 @@ export const DogMatchDialog = ({ open, handleClose }: DogMatchDialogProps) => {
             <Divider />
             <DialogContent>
                 {isLoading ?
-                    <CircularProgress /> :
+                    <Box height={300}>
+                        <CircularProgress size="12rem" />
+                    </Box>
+                    :
                     <>
                         <img width={250} height={200} src={match.img} />
                         <Typography textAlign={'center'} variant="body2" sx={{ color: 'text.secondary' }}>
@@ -48,12 +51,6 @@ export const DogMatchDialog = ({ open, handleClose }: DogMatchDialogProps) => {
                     </>}
             </DialogContent>
             <DialogActions>
-                <Button variant={'contained'} onClick={() => {
-                    const favorites = getFavorites();
-                    if (favorites.length) mutateDogsMatch(favorites);
-                }} color="primary">
-                    Find another match
-                </Button>
                 <Button variant={'contained'} onClick={handleClose} color="primary">
                     Close
                 </Button>

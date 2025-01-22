@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { getFavorites } from "../../../shared/utils/getFavorites";
 import { DogCard } from "../../dogs/components/DogCard";
 import { DogMatchDialog } from "../../dogs/components/DogMatchDialog";
+import { DogCardSkeleton } from "../../dogs/components/DogCardSkeleton";
 
 const FavoritesPage = () => {
-    const { mutate: mutateDogsFetch, data: dogsResult } = usePostDogs();
+    const { mutate: mutateDogsFetch, data: dogsResult, isLoading } = usePostDogs();
     const [open, setOpen] = useState(false);
     const favorites = getFavorites();
 
@@ -27,11 +28,14 @@ const FavoritesPage = () => {
                     justifyContent: { xs: 'center', sm: 'start' },
                     flexWrap: 'wrap'
                 }}>
+                {isLoading && Array(favorites.length).fill('').map((_, i) => (
+                    <DogCardSkeleton key={i} />
+                ))}
                 {dogsResult?.data?.map((d) => {
                     return (<DogCard key={d.id} {...d} />)
                 })}
             </Box>
-            {(!!favorites.length) && <Button onClick={() => setOpen(true)}>Find a match</Button>}
+            {(!!favorites.length) && <Button variant={'contained'} onClick={() => setOpen(true)}>Find a match</Button>}
             <DogMatchDialog open={open} handleClose={() => setOpen(false)} />
         </Page>
     )
