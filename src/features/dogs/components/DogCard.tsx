@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Dog } from "../../../API/responses/dog";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,6 +11,8 @@ export const DogCard = (props: Dog) => {
     const { id, img, name, zip_code, age, breed } = props;
     const favorites = getFavorites();
     const [isFavorite, setIsFavorite] = useState(favorites.includes(id));
+    const { breakpoints } = useTheme();
+    const isLargeScreen = useMediaQuery(breakpoints.up('lg'))
 
     const addToFavorites = () => {
         let newFavorites = getFavorites();
@@ -19,7 +21,7 @@ export const DogCard = (props: Dog) => {
         } else {
             newFavorites = [...newFavorites, id];
         }
-        toast.success(`${name} ${isFavorite ? 'removed from' : 'added to'} favorites`, { position: "top-right" })
+        toast.success(`${name} ${isFavorite ? 'removed from' : 'added to'} favorites`, { position: 'top-center' })
         localStorage.setItem('userFavorites', JSON.stringify(newFavorites));
         setIsFavorite(!isFavorite);
     }
@@ -34,7 +36,7 @@ export const DogCard = (props: Dog) => {
                 p: 2,
                 background: isFavorite ? '#f5f5f5' : 'none',
                 width: '99%',
-                ":hover": { background: '#f5f5f5' },
+                ":hover": { background: isLargeScreen ? '#f5f5f5' : 'none' },
                 transition: '.1s',
                 borderRadius: 2
             }}>
