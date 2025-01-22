@@ -29,7 +29,6 @@ const SearchPage = () => {
     const watchBreeds = watch('breeds');
 
     const triggerSearch = () => {
-        setValue('from', '0')
         const newParams = createParams(getValues());
         setSearchParams(newParams);
     }

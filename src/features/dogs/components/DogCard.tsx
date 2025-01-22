@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
-import { Dog } from "../../../API/responses/dogResponse";
+import { Dog } from "../../../API/responses/dog";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CakeOutlined, LocationOn, Pets } from "@mui/icons-material";

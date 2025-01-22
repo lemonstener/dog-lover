@@ -7,7 +7,7 @@ export const AppRoutes = () => {
     const Logout = lazy(() => import('../features/auth/pages/LogoutPage'));
 
     const Search = lazy(() => import('../features/search/pages/SearchPage'));
-    const Favorites = lazy(() => import('./pages/FavoritesPage'));
+    const Favorites = lazy(() => import('../features/search/pages/FavoritesPage'));
 
     return (
         <BrowserRouter>
