@@ -6,7 +6,6 @@ export const DogCardSkeleton = () => {
         <Box
             sx={{
                 width: { xs: '80%', sm: '50%', md: '33.3%', lg: '25%' },
-                height: 300,
                 my: 1,
                 p: 2
             }}>
