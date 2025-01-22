@@ -6,12 +6,13 @@ import { AgeMaxFilter } from "./AgeMaxFilter";
 import { FilterChip } from "./FilterChip";
 import { Filter } from "../enums/Filter";
 import { SortButton } from "./SortButton";
-import { useFormContext } from "react-hook-form";
 import { SizeButton } from "./SizeButton";
+import { useSearchParams } from "react-router";
+import { searchDefaultValues } from "../utils/searchDefaultValues";
 
 export const SearchEngine = () => {
-    const { getValues } = useFormContext();
-    const { breeds, zipCodes, ageMin, ageMax } = getValues();
+    const [searchParams,] = useSearchParams();
+    const { breeds, zipCodes, ageMin, ageMax } = searchDefaultValues(searchParams)
 
     return (
         <Card sx={{ border: '.2px solid gray', mt: 0 }}>

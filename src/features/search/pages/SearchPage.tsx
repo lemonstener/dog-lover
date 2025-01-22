@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Page } from "../../../shared/components/Page/Page";
 import { useDogSearch } from "../../dogs/hooks/useDogSearch";
 import { usePostDogs } from "../../dogs/hooks/usePostDogs";
