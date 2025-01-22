@@ -45,8 +45,10 @@ const SearchPage = () => {
     }, [watchAgeMin, watchAgeMax, watchZipCodes, getValues, setSearchParams])
 
     useEffect(() => {
-        const newParams = createParams(getValues());
-        setSearchParams(newParams);
+        if (watchFrom !== '0') {
+            const newParams = createParams(getValues());
+            setSearchParams(newParams);
+        }
     }, [getValues, setSearchParams, watchFrom]);
 
     useEffect(() => {

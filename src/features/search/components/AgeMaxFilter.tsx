@@ -3,20 +3,25 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { PatternFormat } from 'react-number-format';
 
 export const AgeMaxFilter = () => {
-    const { control } = useFormContext();
+    const { control, setValue } = useFormContext();
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue('from', '0');
+        setValue('ageMax', e.target.value);
+    }
 
     return (
         <Controller
             control={control}
             name={'ageMax'}
-            render={({ field: { onChange, name, value } }) => {
+            render={({ field: { name, value } }) => {
                 return (
                     <PatternFormat
                         style={{ maxWidth: 100 }}
                         label={'Max age'}
                         name={name}
                         value={value}
-                        onChange={onChange}
+                        onChange={(e) => handleChange(e)}
                         format={'##'}
                         customInput={TextField} />
                 )

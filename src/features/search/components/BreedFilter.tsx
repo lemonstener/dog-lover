@@ -10,6 +10,7 @@ export const BreedFilter = () => {
 
     const handleChange = (value: string) => {
         if (watchBreeds.includes(value)) return;
+        setValue('from', '0');
         setValue('breeds', [...watchBreeds, value]);
     }
 

@@ -3,18 +3,23 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { PatternFormat } from 'react-number-format';
 
 export const ZipCodeFilter = () => {
-    const { control } = useFormContext();
+    const { control, setValue } = useFormContext();
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue('from', '0');
+        setValue('zipCodes', e.target.value);
+    }
 
     return (
         <Controller
             control={control}
             name={'zipCodes'}
-            render={({ field: { onChange, name, value } }) => {
+            render={({ field: { name, value } }) => {
                 return (
                     <PatternFormat
                         name={name}
                         value={value}
-                        onChange={onChange}
+                        onChange={(e) => handleChange(e)}
                         label="Zip"
                         format={'#####'}
                         customInput={TextField} />
