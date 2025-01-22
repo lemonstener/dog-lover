@@ -27,16 +27,22 @@ const SearchPage = () => {
     const watchSize = watch('size');
     const watchFrom = watch('from');
     const watchBreeds = watch('breeds');
-
-    const triggerSearch = () => {
-        const newParams = createParams(getValues());
-        setSearchParams(newParams);
-    }
+    const watchAgeMin = watch('ageMin');
+    const watchAgeMax = watch('ageMax');
+    const watchZipCodes = watch('zipCodes');
 
     useEffect(() => {
         const newParams = createParams(getValues());
         setSearchParams(newParams);
     }, [getValues, setSearchParams, watchSize, watchSort, watchBreeds, setValue]);
+
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            const newParams = createParams(getValues());
+            setSearchParams(newParams);
+        }, 500)
+        return () => clearTimeout(delayDebounceFn)
+    }, [watchAgeMin, watchAgeMax, watchZipCodes, getValues, setSearchParams])
 
     useEffect(() => {
         const newParams = createParams(getValues());
@@ -63,7 +69,6 @@ const SearchPage = () => {
                 }}
                 >
                     <SearchEngine />
-                    <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
                     <Typography>{`${dogSearchResult?.data.total} matches`}</Typography>
                     <ResultPagination
                         page={Math.ceil((+watchFrom + +watchSize) / +watchSize)}
