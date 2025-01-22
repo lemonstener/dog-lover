@@ -77,14 +77,15 @@ const SearchPage = () => {
                         count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)}
                     />
                 </Box>
-
             </FormProvider>
             <Box
                 sx={{
                     width: '100%',
                     display: 'flex',
                     justifyContent: { xs: 'center', sm: 'start' },
-                    flexWrap: 'wrap'
+                    flexWrap: 'wrap',
+                    height: '80%',
+                    overflow: 'scroll'
                 }}>
                 {dogPostResult?.data?.map((d) => {
                     return (<DogCard key={d.id} {...d} />)
