@@ -3,24 +3,19 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { PatternFormat } from 'react-number-format';
 
 export const AgeMinFilter = () => {
-    const { control, setValue } = useFormContext();
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setValue('from', '0');
-        setValue('ageMin', e.target.value);
-    }
+    const { control } = useFormContext();
 
     return (
         <Controller
             control={control}
             name={'ageMin'}
-            render={({ field: { name, value } }) => {
+            render={({ field: { onChange, name, value } }) => {
                 return (
                     <PatternFormat
                         label={'Min age'}
                         name={name}
                         value={value}
-                        onChange={(e) => handleChange(e)}
+                        onChange={onChange}
                         format={'##'}
                         customInput={TextField} />
                 )

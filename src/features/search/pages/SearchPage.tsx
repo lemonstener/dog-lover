@@ -37,22 +37,16 @@ const SearchPage = () => {
     useEffect(() => {
         const newParams = createParams(getValues());
         setSearchParams(newParams);
-    }, [getValues, setSearchParams, watchSize, watchSort, watchBreeds, setValue]);
+    }, [getValues, setSearchParams, watchSize, watchSort, watchBreeds, watchFrom, setValue]);
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
-            const newParams = createParams(getValues());
+            const newParams = createParams({ ...getValues(), from: '0' });
             setSearchParams(newParams);
         }, 500)
         return () => clearTimeout(delayDebounceFn)
-    }, [watchAgeMin, watchAgeMax, watchZipCodes, getValues, setSearchParams])
-
-    useEffect(() => {
-        if (watchFrom !== '0') {
-            const newParams = createParams(getValues());
-            setSearchParams(newParams);
-        }
-    }, [getValues, setSearchParams, watchFrom]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [watchAgeMin, watchAgeMax, watchZipCodes])
 
     useEffect(() => {
         refetch();
