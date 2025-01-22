@@ -14,8 +14,6 @@ export const BreedFilter = () => {
         setValue('breeds', [...watchBreeds, value]);
     }
 
-
-
     return (
         <Box>
             <Controller
@@ -27,8 +25,9 @@ export const BreedFilter = () => {
                             disablePortal
                             disableClearable
                             options={dogBreeds?.data ?? []}
+                            value={''}
                             sx={{ width: 250 }}
-                            onChange={(e) => handleChange(e.target.innerText)}
+                            onChange={(e) => handleChange((e.target as HTMLElement).innerText)}
                             renderInput={(params) => <TextField {...params} label="Breed" />
                             }
                         />
