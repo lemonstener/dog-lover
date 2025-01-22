@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Page } from "../../../shared/components/Page/Page";
 import { useDogSearch } from "../../dogs/hooks/useDogSearch";
 import { usePostDogs } from "../../dogs/hooks/usePostDogs";
@@ -54,9 +54,21 @@ const SearchPage = () => {
     return (
         <Page title={'Search'}>
             <FormProvider {...methods}>
-                <SearchEngine />
-                <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
-                <ResultPagination count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)} />
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 2,
+                    mb: 1,
+                    background: '#f5f5f5'
+                }}
+                >
+                    <SearchEngine />
+                    <Button sx={{ mt: 1 }} variant="contained" onClick={triggerSearch}>Search</Button>
+                    <Typography>{`${dogSearchResult?.data.total} matches`}</Typography>
+                    <ResultPagination count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)} />
+                </Box>
+
             </FormProvider>
             <Box
                 sx={{
