@@ -6,6 +6,7 @@ export const ResultPagination = (props: PaginationProps) => {
     const { getValues, setValue } = useFormContext();
 
     const handleChange = (event: ChangeEvent<unknown>, value: number) => {
+        console.log(event);
         const size = +getValues('size');
         setValue('from', ((size * value) - size).toString());
     };
