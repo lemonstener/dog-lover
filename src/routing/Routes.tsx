@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { HashRouter, Navigate, Route, Routes } from 'react-router';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
 
 export const AppRoutes = () => {
     const Login = lazy(() => import('../features/auth/pages/LoginPage'));
@@ -9,7 +9,7 @@ export const AppRoutes = () => {
     const Favorites = lazy(() => import('../features/search/pages/FavoritesPage'));
 
     return (
-        <HashRouter>
+        <BrowserRouter>
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path="/login" element={<Login />} />
@@ -21,6 +21,6 @@ export const AppRoutes = () => {
 
                 </Routes>
             </Suspense>
-        </HashRouter>
+        </BrowserRouter>
     )
 }
