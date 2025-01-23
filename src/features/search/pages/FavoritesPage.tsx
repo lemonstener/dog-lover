@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Tooltip, Typography } from "@mui/material";
 import { Page } from "../../../shared/components/Page/Page";
 import { usePostDogs } from "../../dogs/hooks/usePostDogs";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ const FavoritesPage = () => {
 
     return (
         <Page title="Favorites">
-            <Typography variant="h1">{favorites.length ? 'Your favorites' : 'You don\'t have any favorites yet'}</Typography>
+            <Typography variant="h1">{favorites.length ? 'Your favorites' : 'You don\'t have any favorites'}</Typography>
             <Box
                 sx={{
                     width: '100%',
@@ -34,7 +34,15 @@ const FavoritesPage = () => {
                     return (<DogCard key={d.id} {...d} />)
                 })}
             </Box>
-            {(!!favorites.length) && <Button sx={{ my: 2 }} variant={'contained'} onClick={() => setOpen(true)}>Find a match</Button>}
+            {favorites.length ?
+                <Button sx={{ my: 2 }} variant={'contained'} onClick={() => setOpen(true)}>Find a match</Button> :
+                <Tooltip arrow title={'You need at least one dog in favorites to unlock this feature'}>
+                    <span>
+                        <Button disabled sx={{ my: 2 }} variant={'contained'}>Find a match</Button>
+                    </span>
+                </Tooltip>
+            }
+
             <DogMatchDialog open={open} handleClose={() => setOpen(false)} />
         </Page>
     )
