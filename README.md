@@ -2,7 +2,7 @@
 Deployed with GitHub pages - https://lemonstener.github.io/dog-lover-fetch
 
 ## About
-This is my submission for the Fetch Rewards front-end assessment. Instructions https://frontend-take-home.fetch.com/
+This is my submission for the Fetch Rewards front-end assessment.
 
 ## Stack
 This is a React application built with Vite and TypeScript. The packages I used are:
