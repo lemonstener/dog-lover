@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { Dog } from "../../../API/responses/dog";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,6 +11,7 @@ export const DogCard = (props: Dog) => {
     const { id, img, name, zip_code, age, breed } = props;
     const favorites = getFavorites();
     const [isFavorite, setIsFavorite] = useState(favorites.includes(id));
+    const { palette } = useTheme();
 
     const addToFavorites = () => {
         let newFavorites = getFavorites();
@@ -32,7 +33,9 @@ export const DogCard = (props: Dog) => {
             }}>
             <Box sx={{
                 p: 2,
-                background: '#f5f5f5',
+                background: isFavorite ? palette.primary.light : '#f5f5f5',
+                color: isFavorite ? 'white' : 'black',
+                transition: '.3s',
                 width: '99%',
                 borderRadius: 2
             }}>

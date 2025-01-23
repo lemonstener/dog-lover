@@ -69,7 +69,7 @@ const SearchPage = () => {
                 }}
                 >
                     <SearchEngine />
-                    <Typography>{`${dogSearchResult?.data.total} matches`}</Typography>
+                    <Typography>{dogSearchResult?.data.total ? `${dogSearchResult?.data.total} matches` : 'Fetching dogs...'}</Typography>
                     <ResultPagination
                         page={Math.ceil((+watchFrom + +watchSize) / +watchSize)}
                         count={calculateTotalPages(dogSearchResult?.data.total ?? 0, +watchSize)}
