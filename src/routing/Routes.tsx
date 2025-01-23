@@ -6,7 +6,6 @@ export const AppRoutes = () => {
     const Login = lazy(() => import('../features/auth/pages/LoginPage'));
     const Logout = lazy(() => import('../features/auth/pages/LogoutPage'));
 
-    const Home = lazy(() => import('../features/home/pages/HomePage'));
     const Search = lazy(() => import('../features/search/pages/SearchPage'));
     const Favorites = lazy(() => import('../features/search/pages/FavoritesPage'));
 
@@ -18,8 +17,7 @@ export const AppRoutes = () => {
                     <Route path="/logout" element={<Logout />} />
 
                     <Route element={<ProtectedRoutes />}>
-                        <Route path='/' element={<Home />} />
-                        <Route path='/search' element={<Search />} />
+                        <Route path='/' element={<Search />} />
                         <Route path="/favorites" element={<Favorites />} />
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Route>
