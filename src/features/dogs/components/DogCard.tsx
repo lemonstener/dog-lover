@@ -29,14 +29,16 @@ export const DogCard = (props: Dog) => {
     return (
         <Box
             sx={{
-                width: { xs: '80%', sm: '50%', md: '33.3%', lg: '25%' },
-                my: 1
+                width: { sm: '50%', md: '33.3%', lg: '25%' },
+                my: 1,
             }}>
             <Box sx={{
                 p: 2,
                 background: isFavorite ? '#f5f5f5' : 'none',
                 width: '99%',
-                ":hover": { background: isLargeScreen ? '#f5f5f5' : 'none' },
+                ":hover": {
+                    background: isLargeScreen ? '#f5f5f5' : 'none',
+                },
                 transition: '.1s',
                 borderRadius: 2
             }}>
@@ -45,7 +47,7 @@ export const DogCard = (props: Dog) => {
                     src={img}
                     alt={`Image of ${name}`}
                     sx={{
-                        height: { xs: 180, sm: 180, md: 200, lg: 260 },
+                        height: 180,
                         width: 250
                     }}
                 />
@@ -53,13 +55,13 @@ export const DogCard = (props: Dog) => {
                     <Typography gutterBottom variant="h5" component="div">
                         {name}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography sx={{ xs: '1.3rem', lg: '1rem' }} >
                         {breed} <Pets sx={{ fontSize: 12 }} />
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography sx={{ xs: '1.3rem', lg: '1rem' }} >
                         {age} <CakeOutlined sx={{ fontSize: 12 }} />
                     </Typography>
-                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                    <Typography sx={{ xs: '1.3rem', lg: '1rem' }} >
                         {zip_code}
                         <LocationOn sx={{ fontSize: 12 }} />
                     </Typography>
