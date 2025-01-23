@@ -81,7 +81,6 @@ const SearchPage = () => {
                 sx={{
                     width: '100%',
                     display: 'flex',
-                    justifyContent: { xs: 'center', sm: 'start' },
                     flexWrap: 'wrap',
                     height: '100%',
                     overflow: 'scroll'

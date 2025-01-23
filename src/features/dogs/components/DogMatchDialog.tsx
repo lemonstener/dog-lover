@@ -15,7 +15,7 @@ export const DogMatchDialog = ({ open, handleClose }: DogMatchDialogProps) => {
     const { mutate: mutateDogsMatch, data: matchResult, isSuccess: dogsMatchSuccess, isLoading: isLoadingDogsMatch } = usePostDogsMatch();
     const { mutate: mutateDogsPost, data: dogsPostResult, isLoading: isLoadingDogsPost } = usePostDogs();
     const isLoading = isLoadingDogsMatch || isLoadingDogsPost;
-    const match = dogsPostResult?.data?.[0] ?? {} as Dog;
+    const { name, img, breed, zip_code, age } = dogsPostResult?.data?.[0] ?? {} as Dog;
 
     useEffect(() => {
         const favorites = getFavorites();
@@ -28,28 +28,42 @@ export const DogMatchDialog = ({ open, handleClose }: DogMatchDialogProps) => {
 
     return (
         <Dialog open={open} sx={{ minHeigh: 250 }}>
-            <DialogTitle>{isLoading ? 'Fetching a match...' : `Your match is ${match.name}!`}</DialogTitle>
+            <DialogTitle>{isLoading ? 'Fetching a match...' : `Your match is ${name}!`}</DialogTitle>
             <Divider />
             <DialogContent>
                 {isLoading ?
-                    <Box height={300}>
+                    <Box>
                         <CircularProgress size="12rem" />
                     </Box>
                     :
-                    <>
-                        <img width={250} height={200} src={match.img} />
-                        <Typography textAlign={'center'} variant="body2" sx={{ color: 'text.secondary' }}>
-                            {match.breed} <Pets sx={{ fontSize: 12 }} />
-                        </Typography>
-                        <Typography textAlign={'center'} variant="body2" sx={{ color: 'text.secondary' }}>
-                            {match.age} <CakeOutlined sx={{ fontSize: 12 }} />
-                        </Typography>
-                        <Typography textAlign={'center'} variant="body2" sx={{ color: 'text.secondary' }}>
-                            {match.zip_code}
-                            <LocationOn sx={{ fontSize: 12 }} />
-                        </Typography>
-                    </>}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 400 }}>
+                        <Box
+                            component={'img'}
+                            src={img}
+                            alt={`Image of ${name}`}
+                            sx={{
+                                height: 280,
+                                maxWidth: '100%',
+                            }}
+                        />
+                        <Box sx={{ py: 1, textAlign: 'center' }}>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {name}
+                            </Typography>
+                            <Typography sx={{ xs: '1.3rem', lg: '1rem' }} >
+                                {breed} <Pets sx={{ fontSize: 12 }} />
+                            </Typography>
+                            <Typography sx={{ xs: '1.3rem', lg: '1rem' }} >
+                                {age} <CakeOutlined sx={{ fontSize: 12 }} />
+                            </Typography>
+                            <Typography sx={{ xs: '1.3rem', lg: '1rem' }} >
+                                {zip_code}
+                                <LocationOn sx={{ fontSize: 12 }} />
+                            </Typography>
+                        </Box>
+                    </Box>}
             </DialogContent>
+            <Divider />
             <DialogActions>
                 <Button variant={'contained'} onClick={handleClose} color="primary">
                     Close

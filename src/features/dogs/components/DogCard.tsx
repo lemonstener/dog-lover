@@ -1,4 +1,4 @@
-import { Box, Button, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Dog } from "../../../API/responses/dog";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -11,8 +11,6 @@ export const DogCard = (props: Dog) => {
     const { id, img, name, zip_code, age, breed } = props;
     const favorites = getFavorites();
     const [isFavorite, setIsFavorite] = useState(favorites.includes(id));
-    const { breakpoints } = useTheme();
-    const isLargeScreen = useMediaQuery(breakpoints.up('lg'))
 
     const addToFavorites = () => {
         let newFavorites = getFavorites();
@@ -29,17 +27,13 @@ export const DogCard = (props: Dog) => {
     return (
         <Box
             sx={{
-                width: { sm: '50%', md: '33.3%', lg: '25%' },
+                width: { xs: '50%', md: '33.3%', lg: '25%' },
                 my: 1,
             }}>
             <Box sx={{
                 p: 2,
-                background: isFavorite ? '#f5f5f5' : 'none',
+                background: '#f5f5f5',
                 width: '99%',
-                ":hover": {
-                    background: isLargeScreen ? '#f5f5f5' : 'none',
-                },
-                transition: '.1s',
                 borderRadius: 2
             }}>
                 <Box
@@ -48,7 +42,7 @@ export const DogCard = (props: Dog) => {
                     alt={`Image of ${name}`}
                     sx={{
                         height: 180,
-                        width: 250
+                        maxWidth: '100%'
                     }}
                 />
                 <Box py={1}>

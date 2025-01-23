@@ -25,7 +25,6 @@ const FavoritesPage = () => {
                 sx={{
                     width: '100%',
                     display: 'flex',
-                    justifyContent: { xs: 'center', sm: 'start' },
                     flexWrap: 'wrap'
                 }}>
                 {isLoading && Array(favorites.length).fill('').map((_, i) => (
