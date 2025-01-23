@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+import { HashRouter, Navigate, Route, Routes } from 'react-router';
 import { ProtectedRoutes } from './ProtectedRoutes';
 
 export const AppRoutes = () => {
@@ -11,7 +11,7 @@ export const AppRoutes = () => {
     const Favorites = lazy(() => import('../features/search/pages/FavoritesPage'));
 
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     <Route path="/login" element={<Login />} />
@@ -25,6 +25,6 @@ export const AppRoutes = () => {
                     </Route>
                 </Routes>
             </Suspense>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
