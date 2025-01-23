@@ -83,7 +83,7 @@ const SearchPage = () => {
                     display: 'flex',
                     justifyContent: { xs: 'center', sm: 'start' },
                     flexWrap: 'wrap',
-                    height: '70%',
+                    height: '100%',
                     overflow: 'scroll'
                 }}>
                 {isLoading && Array(+watchSize).fill('').map((_, i) => (
