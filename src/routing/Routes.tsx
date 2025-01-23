@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react';
 import { HashRouter, Navigate, Route, Routes } from 'react-router';
-import { ProtectedRoutes } from './ProtectedRoutes';
 
 export const AppRoutes = () => {
     const Login = lazy(() => import('../features/auth/pages/LoginPage'));
@@ -16,11 +15,10 @@ export const AppRoutes = () => {
                     <Route path="/login" element={<Login />} />
                     <Route path="/logout" element={<Logout />} />
 
-                    <Route element={<ProtectedRoutes />}>
-                        <Route path='/' element={<Search />} />
-                        <Route path="/favorites" element={<Favorites />} />
-                        <Route path="*" element={<Navigate to="/" replace />} />
-                    </Route>
+                    <Route path='/' element={<Search />} />
+                    <Route path="/favorites" element={<Favorites />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+
                 </Routes>
             </Suspense>
         </HashRouter>
